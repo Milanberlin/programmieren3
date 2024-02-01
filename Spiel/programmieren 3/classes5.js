@@ -1,50 +1,177 @@
 class LivingCreature {
-    constructor(x, y, index){
+    constructor(x, y, colorValue, symbol) {
         this.x = x;
         this.y = y;
-        this.multiply = 0;
-        this.index = index;
-        this.directions = [
+        this.colorValue = colorValue;
+        this.symbol = symbol;
+        this.eaten = 0;
+        this.notEaten = 0;
+        this.neighbors = [
             [this.x - 1, this.y - 1],
-            [this.x, this, y - 1],
-            [this.x, +1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
             [this.x + 1, this.y],
-            [this, x - 1, this.y + 1],
+            [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
-            [this.x + 1, this.y + 1],
+            [this.x + 1, this.y + 1]
         ];
     }
-}
-chooseCell(ch); {
-    let found = [];
-    for (let i in this.directions) {
-        let x = this.directions[i][0];
-        let y = this.directions[i][1];
-        if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-            if (matrix[y][x] == ch) {
-                found.push(this.directions[i]);
+
+    updateNeighbors() {
+        this.neighbors = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
+
+    chooseFields(symbol) {
+        this.updateNeighbors();
+        let found = [];
+        for (let i = 0; i < this.neighbors.length; i++) {
+            let pos = this.neighbors[i];
+            let posX = pos[0];
+            let posY = pos[1];
+            if (
+                posX >= 0 &&
+                posX < matrix[0].length &&
+                posY >= 0 &&
+                posY < matrix.length
+            ) {
+                if (matrix[posY][posX] === symbol) {
+                    found.push(pos);
+                }
             }
         }
+        return found;
     }
-    return found;
- }
 
-class Grass extends LivingCreature {
+    eat() {
+    }
+
+    move() {
+    }
+
+    die() {
+    }
 
     mul() {
-        this.multiply++;
-        let newCell = random(this.chooseCell(0));
-        if (this.multiply >= 8 && newCell) {
-            let newGrass = new Grass(newCell[0], newCell[1], this.index);
-            grassArr.push(newGrass);
-            matrix[newCell][1][newCell][0] = this.index;
-            this, multiply = 0;
+    }
+}
 
+class Grass extends LivingCreature {
+    constructor(x, y) {
+        super(x, y, 1, 1);
+        this.rounds = 0;
+    }
+
+    mul() {
+        this.rounds++;
+        if (this.rounds > 6) {
+            let emptyFields = this.chooseFields(0);
+            if (emptyFields.length > 0) {
+                let randField = random(emptyFields);
+                let newX = randField[0];
+                let newY = randField[1];
+                let grasObj = new Grass(newX, newY);
+                grasArr.push(grasObj);
+                matrix[newY][newX] = 1;
+            }
+            this.rounds = 0;
         }
     }
 }
 
+class Grazer extends LivingCreature {
+    constructor(x, y) {
+        super(x, y, 2, 2);
+        this.eaten = 0;
+        this.notEaten = 0;
+    }
+
+    eat() {
+        
+    }
+
+    move() {
+       
+    }
+
+    die() {
+        
+    }
+
+    mul() {
+    }
+}
+
+class Fleischfresser extends LivingCreature {
+    constructor(x, y) {
+        super(x, y, 3, 3);
+        this.eaten = 0;
+        this.notEaten = 0;
+    }
+
+    eat() {
+       
+    }
+
+    move() {
+
+    }
+
+    die() {
+    }
+
+    mul() {
+    }
+}
+
+class Snake extends LivingCreature {
+    constructor(x, y) {
+        super(x, y, 4, 4);
+        this.eaten = 0;
+        this.notEaten = 0;
+    }
+
+    eat() {
+    }
+
+    move() {
+    }
+
+    die() {
+    }
+
+    mul() {
+    }
+}
+
+class Lion extends LivingCreature {
+    constructor(x, y) {
+        super(x, y, 5, 5);
+        this.eaten = 0;
+        this.notEaten = 0;
+    }
+
+    eat() {
+    }
+
+    move() {
+    }
+
+    die() {
+    }
+
+    mul() {
+    }
+}
 class Grass {
     constructor(x, y) {
         this.x = x;
