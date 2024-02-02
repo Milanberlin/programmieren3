@@ -36,7 +36,7 @@ chooseFields(symbol); {
     return found;
 }
 // vermehren
-mul(); {
+mul();  {
     // rundenzÃhler erhÃ¶hen
     this.rounds++;
     // rundenzähler checken
