@@ -73,7 +73,7 @@ class Grass extends LivingCreature {
         super(x, y, 1, 1);
         this.rounds = 0;
     }
-
+    // mit mul pflanzt man sich fort
     mul() {
         this.rounds++;
         if (this.rounds > 6) {

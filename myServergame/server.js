@@ -1,4 +1,3 @@
-
 let interValID
 let gameStarted = false;
 
@@ -44,8 +43,10 @@ server.listen(3000, function () {
                 
                 
             }
-            if () {
-                
+            if (clients.length === 0) {
+                isGameRunning = false;
+                clearInterval(interValID);  
+                console.log("Spiel gestoppt: keine Clients", clients.length); 
             }
         })
     })
