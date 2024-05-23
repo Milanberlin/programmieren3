@@ -33,13 +33,13 @@ function addMoreCreatures(matrix) {
         for (let x = 0; x < matrix[y].length; x++) {
             if (y == x) {
                 if (y % 2 == 0) {
-                    if (random(100) < 30) { // Adjust the probability as needed
+                    if (random(100) < 30) { 
                         matrix[y][x] = 3; // Fleischfresser
                     } else {
                         matrix[y][x] = 2; // Grazer
                     }
                 } else {
-                    if (random(100) < 20) { // Adjust the probability as needed
+                    if (random(100) < 20) { 
                         matrix[y][x] = 5; // Lion
                     } else {
                         matrix[y][x] = 4; // Snake
