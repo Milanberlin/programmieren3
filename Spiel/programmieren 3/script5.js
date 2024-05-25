@@ -7,7 +7,7 @@ let matrix = [
     [1, 1, 5, 2, 3],
     [1, 1, 4, 2, 2]
 ];
-let fr = 50;
+let fr = 5;
 let side = 10;
 
 let grasArr = [];

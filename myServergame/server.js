@@ -13,7 +13,7 @@ const app = express();
 
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
-app.use(express.static)('./client')
+app.use(express.static('./client'));
 app.get("/", function(req, res) {
     res.redirect('client.html');
 })

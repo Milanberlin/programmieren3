@@ -15,8 +15,8 @@ class LivingCreature {
             [this.x + 1, this.y + 1],
         ];
     }
-}
-chooseCell(ch); {
+
+chooseCell(ch) {
     let found = [];
     for (let i in this.directions) {
         let x = this.directions[i][0];
@@ -29,6 +29,8 @@ chooseCell(ch); {
     }
     return found;
  }
+}
+
 class Grass extends LivingCreature {
 
     mul() {

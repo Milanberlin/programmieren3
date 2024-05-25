@@ -2,7 +2,6 @@ const LivingCreature = require("./livingCreature.js");
 module.exports = class Grass extends LivingCreature{
     constructor(x, y) {
         super(x,y);
-        // Farbe - grün
         this.colorValue = 1;
         this.roundCount = 0;
     }
