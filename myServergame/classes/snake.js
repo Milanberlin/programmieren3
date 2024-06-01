@@ -1,4 +1,13 @@
 const LivingCreature = require("./livingCreature.js");
+let matrix = [
+    [0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 2, 1, 2, 2],
+    [1, 1, 0, 2, 2],
+    [1, 1, 5, 2, 3],
+    [1, 1, 4, 2, 2]
+];
 module.exports = class Snaske extends LivingCreature {
     constructor(x, y) {
         super(x, y, 4, 4);

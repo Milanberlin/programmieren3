@@ -1,3 +1,13 @@
+let matrix = [
+    [0, 0, 1, 0, 0],
+    [1, 1, 0, 0, 0],
+    [0, 1, 0, 3, 0],
+    [0, 2, 1, 2, 2],
+    [1, 1, 0, 2, 2],
+    [1, 1, 5, 2, 3],
+    [1, 1, 4, 2, 2]
+];
+
 module.exports = class LivingCreature {
     constructor(x, y, colorValue, symbol) {
         this.x = x;

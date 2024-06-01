@@ -1,4 +1,29 @@
 const LivingCreature = require("./livingCreature.js");
+let matrix = [
+    [0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 2, 1, 2, 2],
+    [1, 1, 0, 2, 2],
+    [1, 1, 5, 2, 3],
+    [1, 1, 4, 2, 2]
+];
+function random(...args) {
+    if (args.length === 0) {
+    return Math.random();
+    } else if (args.length === 1 && Array.isArray(args[0])) {
+    return args[0][Math.floor(Math.random() * args[0].length)];
+    } else if (args.length === 1 && typeof args[0] === 'number') {
+    return Math.floor(Math.random() * args[0]);
+    } else if (args.length === 2 && typeof args[0] === 'number' && typeof args[1] === 'number') {
+    return Math.floor(Math.random() * (args[1] - args[0] + 1) - args[0]);
+    } else {
+    console.log(args);
+    throw new Error('Invalid arguments');
+    }
+    }
+
+
 module.exports = class Grazer extends LivingCreature {
     constructor(x, y) {
         super(x, y, 2, 2);
