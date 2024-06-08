@@ -16,7 +16,7 @@ module.exports = class Grass extends LivingCreature{
                 let newX = randField[0];
                 let newY = randField[1];
                 let grasObj = new Grass(newX, newY);
-                grasArr.push(grasObj);
+                state.grasArr.push(grasObj);
                 state.matrix[newY][newX] = 1;
             }
             this.rounds = 0;

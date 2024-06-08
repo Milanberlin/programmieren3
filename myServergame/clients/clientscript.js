@@ -16,7 +16,7 @@ socket.on('matrix', (matrix) => {
         for (let j = 0; j < matrix[i].length; j++) {
 
             let farbWert = matrix[i][j];
-
+            fill("white");
             if (farbWert === 1) {
                 fill("green");
             } else if (farbWert === 2) {

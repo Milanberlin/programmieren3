@@ -33,7 +33,7 @@ server.listen(3000, function () {
 
             // spiel starten
             initGame();
-            // console.log(state.matrix);
+             //console.log(state.matrix);
             // spielschleife starten
 
             intervalID = setInterval(function () {
@@ -138,6 +138,25 @@ function updategame() {
         let grazerObj = state.grazerArr[i];
         grazerObj.eat();
         grazerObj.mul();
+
+
+    }
+    for (let i = 0; i < state.fleischfresserArr.length; i++) {
+        let ffObj = state.fleischfresserArr[i];
+        ffObj.eat();
+        ffObj.mul();
+
+    }
+    for (let i = 0; i < state.snakeArr.length; i++) {
+        let  skObj = state.snakeArr[i];
+        skObj.eat();
+        skObj.mul();
+
+    }
+    for (let i = 0; i < state.lionArr.length; i++) {
+        let  liObj = state.lionArr[i];
+        liObj.eat();
+        liObj.mul();
 
     }
     //console.log(matrix);

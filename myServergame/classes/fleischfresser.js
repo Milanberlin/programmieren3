@@ -20,7 +20,7 @@ module.exports = class Fleischfresser extends LivingCreature {
             this.x = newX;
             this.y = newY;
 
-            for (let i = 0; i < grazerArr.length; i++) {
+            for (let i = 0; i < state.grazerArr.length; i++) {
                 let grazerObj = state.grazerArr[i];
                 if (grazerObj.x === this.x && grazerObj.y === this.y) {
                     state.grazerArr.splice(i, 1);
@@ -55,7 +55,7 @@ module.exports = class Fleischfresser extends LivingCreature {
     }
     die() {
         state.matrix[this.y][this.x] = 0;
-        for (let i = 0; i < fleischfresserArr.length; i++) {
+        for (let i = 0; i < state.fleischfresserArr.length; i++) {
             let fleischfresserObj = state.fleischfresserArr[i];
             if (fleischfresserObj.x === this.x && fleischfresserObj.y === this.y) {
                 state.fleischfresserArr.splice(i, 1);

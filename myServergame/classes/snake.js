@@ -72,7 +72,7 @@ module.exports = class Snaske extends LivingCreature {
                 let newPos = random(emptyFields);
                 let newX = newPos[0];
                 let newY = newPos[1];
-                snakeArr.push(new Snake(newX, newY));
+                state.snakeArr.push(new Snake(newX, newY));
                 state.matrix[newY][newX] = 4;
             }
             this.eaten = 0;

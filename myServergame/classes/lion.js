@@ -1,4 +1,5 @@
 const LivingCreature = require("./livingCreature.js");
+const {random, state} = require("../global.js")
 
 
 module.exports = class Lion extends LivingCreature {
@@ -20,7 +21,7 @@ module.exports = class Lion extends LivingCreature {
             this.x = newX;
             this.y = newY;
 
-            for (let i = 0; i < snakeArr.length; i++) {
+            for (let i = 0; i < state.snakeArr.length; i++) {
                 let snakeObj = state.snakeArr[i];
                 if (snakeObj.x === this.x && snakeObj.y === this.y) {
                     state.snakeArr.splice(i, 1);
@@ -59,9 +60,9 @@ module.exports = class Lion extends LivingCreature {
     die() {
         state.matrix[this.y][this.x] = 0;
         for (let i = 0; i < state.lionArr.length; i++) {
-            let lionObj = lionArr[i];
+            let lionObj = state.lionArr[i];
             if (lionObj.x === this.x && lionObj.y === this.y) {
-                lionArr.splice(i, 1);
+                state.lionArr.splice(i, 1);
                 break;
             }
         }

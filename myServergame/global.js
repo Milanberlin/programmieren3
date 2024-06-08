@@ -1,14 +1,4 @@
 ///// Spiellogik
-let matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 2, 1, 2, 2],
-    [1, 1, 0, 2, 2],
-    [1, 1, 5, 2, 3],
-    [1, 1, 4, 2, 2]
-];
-
 
 function random(...args) {
     if (args.length === 0) {
@@ -47,7 +37,7 @@ function getRandMatrix(b, h) {
     return matrix;
 }
 
-matrix = getRandMatrix(50, 50);
+let matrix = getRandMatrix(50, 50);
 
 let state = {
     matrix: matrix,
