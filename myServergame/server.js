@@ -3,6 +3,7 @@ const Grazer = require("./classes/grazer.js");
 const Fleischfresser = require("./classes/fleischfresser.js");
 const Snake = require("./classes/snake.js");
 const Lion = require("./classes/lion.js");
+const { state, random } = require("./global.js");
 
 let interValID
 let gameStarted = false;
@@ -15,7 +16,7 @@ let server = require('http').Server(app);
 let io = require('socket.io')(server);
 app.use(express.static('./clients'));
 app.get("/", function (req, res) {
-    res.redirect('client.html');
+    res.redirect('./client.html');
 })
 
 let clients = [];
@@ -32,7 +33,7 @@ server.listen(3000, function () {
 
             // spiel starten
             initGame();
-            console.log(matrix);
+            // console.log(state.matrix);
             // spielschleife starten
 
             intervalID = setInterval(function () {
@@ -66,69 +67,26 @@ server.listen(3000, function () {
 });
 
 
-///// Spiellogik
-let matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 2, 1, 2, 2],
-    [1, 1, 0, 2, 2],
-    [1, 1, 5, 2, 3],
-    [1, 1, 4, 2, 2]
-];
-
-
-let grasArr = [];
-let grazerArr = [];
-let fleischfresserArr = [];
-let snakeArr = [];
-let lionArr = [];
-
-function random(...args) {
-    if (args.length === 0) {
-        return Math.random();
-    } else if (args.length === 1 && Array.isArray(args[0])) {
-        return args[0][Math.floor(Math.random() * args[0].length)];
-    } else if (args.length === 1 && typeof args[0] === 'number') {
-        return Math.floor(Math.random() * args[0]);
-    } else if (args.length === 2 && typeof args[0] === 'number' && typeof args[1] === 'number') {
-        return Math.random() * (args[1] - args[0] + 1) - args[0];
-    } else {
-        console.log(args);
-        throw new Error('Invalid arguments');
-    }
-}
 
 
 
-function getRandMatrix(b, h) {
-    let matrix = [];
-    for (let y = 0; y < h; y++) {
-        let arr = [];
-        matrix[y] = arr; // leeres Zeilenarray
-        for (let x = 0; x < b; x++) {
-            // Zeilenarray befüllen
-            matrix[y][x] = Math.floor(random(0, 2));
-        }
-    }
-    return matrix;
-}
+
 
 function addMoreCreatures() {
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix[y].length; x++) {
+    for (let y = 0; y < state.matrix.length; y++) {
+        for (let x = 0; x < state.matrix[y].length; x++) {
             if (y == x) {
                 if (y % 2 == 0) {
                     if (random(100) < 30) {
-                        matrix[y][x] = 3; // Fleischfresser
+                        state.matrix[y][x] = 3; // Fleischfresser
                     } else {
-                        matrix[y][x] = 2; // Grazer
+                        state.matrix[y][x] = 2; // Grazer
                     }
                 } else {
                     if (random(100) < 20) {
-                        matrix[y][x] = 5; // Lion
+                        state.matrix[y][x] = 5; // Lion
                     } else {
-                        matrix[y][x] = 4; // Snake
+                        state.matrix[y][x] = 4; // Snake
                     }
                 }
             }
@@ -138,29 +96,29 @@ function addMoreCreatures() {
 
 function initGame() {
     console.log('init game....');
-    matrix = getRandMatrix(50, 50);
+
     addMoreCreatures();
 
 
 
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix[y].length; x++) {
-            let farbWert = matrix[y][x];
+    for (let y = 0; y < state.matrix.length; y++) {
+        for (let x = 0; x < state.matrix[y].length; x++) {
+            let farbWert = state.matrix[y][x];
             if (farbWert === 1) {
                 let grObj = new Grass(x, y);
-                grasArr.push(grObj);
+                state.grasArr.push(grObj);
             } else if (farbWert === 2) {
                 let grObj = new Grazer(x, y);
-                grazerArr.push(grObj);
+                state.grazerArr.push(grObj);
             } else if (farbWert === 3) {
                 let ffObj = new Fleischfresser(x, y);
-                fleischfresserArr.push(ffObj);
+                state.fleischfresserArr.push(ffObj);
             } else if (farbWert === 4) {
                 let skObj = new Snake(x, y);
-                snakeArr.push(skObj);
+                state.snakeArr.push(skObj);
             } else if (farbWert === 5) {
                 let liObj = new Lion(x, y);
-                lionArr.push(liObj);
+                state.lionArr.push(liObj);
             }
         }
     }
@@ -171,18 +129,20 @@ function initGame() {
 
 function updategame() {
     console.log("update game...");
-    for (let i = 0; i < grasArr.length; i++) {
-        let grassObj = grasArr[i];
+    for (let i = 0; i < state.grasArr.length; i++) {
+        let grassObj = state.grasArr[i];
         grassObj.mul();
     }
 
-    for (let i = 0; i < grazerArr.length; i++) {
-        let grazerObj = grazerArr[i];
+    for (let i = 0; i < state.grazerArr.length; i++) {
+        let grazerObj = state.grazerArr[i];
         grazerObj.eat();
         grazerObj.mul();
 
     }
     //console.log(matrix);
     console.log("sende matrix zu clients...");
-    io.sockets.emit('matrix', matrix);
+    io.sockets.emit('matrix', state.matrix);
 }
+
+

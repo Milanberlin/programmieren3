@@ -14,7 +14,21 @@ socket.on('matrix', (matrix) => {
     // Die Matrix wird auf den Bildschirm gezeichnet.
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
-            fill(matrix[i][j]);
+
+            let farbWert = matrix[i][j];
+
+            if (farbWert === 1) {
+                fill("green");
+            } else if (farbWert === 2) {
+                fill("yellow");
+            } else if (farbWert === 3) {
+                fill("red");
+            } else if (farbWert === 4) {
+                fill("blue");
+            } else if (farbWert === 5) {
+                fill("brown");
+            }
+
             rect(j * cellSize, i * cellSize, cellSize, cellSize);
         }
     }

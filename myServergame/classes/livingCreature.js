@@ -1,12 +1,4 @@
-let matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 1, 0, 0, 0],
-    [0, 1, 0, 3, 0],
-    [0, 2, 1, 2, 2],
-    [1, 1, 0, 2, 2],
-    [1, 1, 5, 2, 3],
-    [1, 1, 4, 2, 2]
-];
+const { state } = require('../global.js');
 
 module.exports = class LivingCreature {
     constructor(x, y, colorValue, symbol) {
@@ -50,11 +42,11 @@ module.exports = class LivingCreature {
             let posY = pos[1];
             if (
                 posX >= 0 &&
-                posX < matrix[0].length &&
+                posX < state.matrix[0].length &&
                 posY >= 0 &&
-                posY < matrix.length
+                posY < state.matrix.length
             ) {
-                if (matrix[posY][posX] === symbol) {
+                if (state.matrix[posY][posX] === symbol) {
                     found.push(pos);
                 }
             }
