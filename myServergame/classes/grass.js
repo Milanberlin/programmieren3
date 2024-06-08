@@ -1,13 +1,5 @@
 const LivingCreature = require("./livingCreature.js");
-let matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 2, 1, 2, 2],
-    [1, 1, 0, 2, 2],
-    [1, 1, 5, 2, 3],
-    [1, 1, 4, 2, 2]
-];
+const { state, random } = require("../global.js");
 module.exports = class Grass extends LivingCreature{
     constructor(x, y) {
         super(x,y);
@@ -25,7 +17,7 @@ module.exports = class Grass extends LivingCreature{
                 let newY = randField[1];
                 let grasObj = new Grass(newX, newY);
                 grasArr.push(grasObj);
-                matrix[newY][newX] = 1;
+                state.matrix[newY][newX] = 1;
             }
             this.rounds = 0;
         }

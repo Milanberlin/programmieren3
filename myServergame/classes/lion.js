@@ -1,13 +1,6 @@
 const LivingCreature = require("./livingCreature.js");
-let matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 2, 1, 2, 2],
-    [1, 1, 0, 2, 2],
-    [1, 1, 5, 2, 3],
-    [1, 1, 4, 2, 2]
-];
+
+
 module.exports = class Lion extends LivingCreature {
     constructor(x, y) {
         super(x, y, 5, 5);
@@ -22,15 +15,15 @@ module.exports = class Lion extends LivingCreature {
             let newX = randPos[0];
             let newY = randPos[1];
 
-            matrix[newY][newX] = this.colorValue;
-            matrix[this.y][this.x] = 0;
+            state.matrix[newY][newX] = this.colorValue;
+            state.matrix[this.y][this.x] = 0;
             this.x = newX;
             this.y = newY;
 
             for (let i = 0; i < snakeArr.length; i++) {
-                let snakeObj = snakeArr[i];
+                let snakeObj = state.snakeArr[i];
                 if (snakeObj.x === this.x && snakeObj.y === this.y) {
-                    snakeArr.splice(i, 1);
+                    state.snakeArr.splice(i, 1);
                     break;
                 }
             }
@@ -55,8 +48,8 @@ module.exports = class Lion extends LivingCreature {
             let newX = newPos[0];
             let newY = newPos[1];
 
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.colorValue;
+            state.matrix[this.y][this.x] = 0;
+            state.matrix[newY][newX] = this.colorValue;
 
             this.x = newX;
             this.y = newY;
@@ -64,8 +57,8 @@ module.exports = class Lion extends LivingCreature {
     }
 
     die() {
-        matrix[this.y][this.x] = 0;
-        for (let i = 0; i < lionArr.length; i++) {
+        state.matrix[this.y][this.x] = 0;
+        for (let i = 0; i < state.lionArr.length; i++) {
             let lionObj = lionArr[i];
             if (lionObj.x === this.x && lionObj.y === this.y) {
                 lionArr.splice(i, 1);
@@ -81,8 +74,8 @@ module.exports = class Lion extends LivingCreature {
                 let newPos = random(emptyFields);
                 let newX = newPos[0];
                 let newY = newPos[1];
-                lionArr.push(new Lion(newX, newY));
-                matrix[newY][newX] = 5;
+                state.lionArr.push(new Lion(newX, newY));
+                state.matrix[newY][newX] = 5;
             }
             this.eaten = 0;
         }
