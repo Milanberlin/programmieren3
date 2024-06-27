@@ -1,6 +1,6 @@
 const LivingCreature = require("./livingCreature.js");
 const { state, random } = require("../global.js");
-module.exports = class Snaske extends LivingCreature {
+module.exports = class Snake extends LivingCreature {
     constructor(x, y) {
         super(x, y, 4, 4);
         this.eaten = 0;

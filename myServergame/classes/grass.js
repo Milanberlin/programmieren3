@@ -8,8 +8,8 @@ module.exports = class Grass extends LivingCreature{
     }
     mul() {
         // counter > 6 , dann vermehren
-        this.rounds++;
-        if (this.rounds > 6) {
+        this.roundCount++;
+        if (this.roundCount > 6) {
             let emptyFields = this.chooseFields(0);
             if (emptyFields.length > 0) {
                 let randField = random(emptyFields);
@@ -19,7 +19,7 @@ module.exports = class Grass extends LivingCreature{
                 state.grasArr.push(grasObj);
                 state.matrix[newY][newX] = 1;
             }
-            this.rounds = 0;
+            this.roundCount = 0;
         }
     }
-}
+}                                                

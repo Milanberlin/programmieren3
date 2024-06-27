@@ -69,4 +69,4 @@ module.exports = class Grazer extends LivingCreature {
         }
     }
 
-}
+}  

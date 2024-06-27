@@ -163,5 +163,12 @@ function updategame() {
     console.log("sende matrix zu clients...");
     io.sockets.emit('matrix', state.matrix);
 }
-
-
+function createBlitz() {
+    // Blitzposition zufällig auswählen
+    let blitzX = Math.floor(random(state.matrix[0].length));
+    let blitzY = Math.floor(random(state.matrix.length));
+    // Beispiel: Blitz an zufälliger Position erzeugen
+    let blitz = { x: blitzX, y: blitzY };
+    // Blitz an alle Clients senden
+    io.sockets.emit('blitz', blitz);
+ }
