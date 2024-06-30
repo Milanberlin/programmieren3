@@ -36,13 +36,16 @@ function getRandMatrix(b, h) {
 
 let matrix = getRandMatrix(50, 50);
 
+let weather = "summer"; 
+
 let state = {
     matrix: matrix,
     grasArr: grasArr,
     grazerArr: grazerArr,
     fleischfresserArr: fleischfresserArr,
     snakeArr: snakeArr,
-    lionArr: lionArr
+    lionArr: lionArr,
+    weather: weather
 }
 
 

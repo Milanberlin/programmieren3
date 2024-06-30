@@ -35,7 +35,7 @@ server.listen(3000, function () {
             initGame();
              //console.log(state.matrix);
             // spielschleife starten
-
+            createBlitz();
             intervalID = setInterval(function () {
                 updategame();
             }, 1000);
@@ -129,40 +129,53 @@ function initGame() {
 
 function updategame() {
     console.log("update game...");
+
     for (let i = 0; i < state.grasArr.length; i++) {
         let grassObj = state.grasArr[i];
-        grassObj.mul();
+        if (state.weather === "winter") {
+            if (i % 2 === 0) { 
+                grassObj.mul();
+            }
+        } else {
+            grassObj.mul();
+        }
     }
 
     for (let i = 0; i < state.grazerArr.length; i++) {
         let grazerObj = state.grazerArr[i];
         grazerObj.eat();
-        grazerObj.mul();
-
-
+        if (state.weather === "summer") {
+            grazerObj.mul(); 
+        } else if (state.weather === "winter" && i % 2 === 0) {
+            grazerObj.mul();
+        } else {
+            grazerObj.mul();
+        }
     }
+
+
     for (let i = 0; i < state.fleischfresserArr.length; i++) {
         let ffObj = state.fleischfresserArr[i];
         ffObj.eat();
         ffObj.mul();
-
     }
+
     for (let i = 0; i < state.snakeArr.length; i++) {
-        let  skObj = state.snakeArr[i];
+        let skObj = state.snakeArr[i];
         skObj.eat();
         skObj.mul();
-
     }
+
     for (let i = 0; i < state.lionArr.length; i++) {
-        let  liObj = state.lionArr[i];
+        let liObj = state.lionArr[i];
         liObj.eat();
         liObj.mul();
-
     }
-    //console.log(matrix);
+
     console.log("sende matrix zu clients...");
     io.sockets.emit('matrix', state.matrix);
 }
+
 function createBlitz() {
     // Blitzposition zufällig auswählen
     let blitzX = Math.floor(random(state.matrix[0].length));
@@ -172,3 +185,11 @@ function createBlitz() {
     // Blitz an alle Clients senden
     io.sockets.emit('blitz', blitz);
  }
+ function changeWeather() {
+    const weathers = ["summer", "winter", "spring", "autumn"];
+    state.weather = random(weathers);
+    console.log("Current weather: " + state.weather);
+    io.sockets.emit('weather', state.weather);
+}
+
+setInterval(changeWeather, 1000);

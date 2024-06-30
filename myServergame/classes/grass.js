@@ -7,9 +7,16 @@ module.exports = class Grass extends LivingCreature{
         this.roundCount = 0;
     }
     mul() {
-        // counter > 6 , dann vermehren
         this.roundCount++;
-        if (this.roundCount > 6) {
+        let mulThreshold = 6;
+    
+        if (state.weather === "summer") {
+            mulThreshold = 4;
+        } else if (state.weather === "winter") {
+            mulThreshold = 8;
+        }
+    
+        if (this.roundCount > mulThreshold) {
             let emptyFields = this.chooseFields(0);
             if (emptyFields.length > 0) {
                 let randField = random(emptyFields);
@@ -22,4 +29,4 @@ module.exports = class Grass extends LivingCreature{
             this.roundCount = 0;
         }
     }
-}                                                
+ }    

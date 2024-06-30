@@ -4,7 +4,12 @@ const socket = io();
 const cellSize = 20;
 
 let blitzImage;
+let currentWeather = "summer";
 
+socket.on('weather', (weather) => {
+    currentWeather = weather;
+    console.log("Current weather: " + weather);
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     const blitzButton = document.getElementById('blitzButton');
@@ -17,21 +22,27 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Element with ID 'blitzButton' not found.");
     }
 });
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    blitzImage = loadImage("blitz.png")
+    blitzImage = loadImage("blitz.png");
+    frameRate(10);
+}
 
-    };
-// Mit socket.on() können wir auf Ereignisse vom Server reagieren.
-// Hier reagieren wir auf das Ereignis matrix, das uns die aktuelle Matrix vom Server sendet.
 socket.on('matrix', (matrix) => {
-    // Die Matrix wird auf den Bildschirm gezeichnet.
+    // Hintergrund löschen
+    background(255);
+
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
             let farbWert = matrix[i][j];
             fill("white");
             if (farbWert === 1) {
-                fill("green");
+                if (currentWeather === "winter") {
+                    fill("white");
+                } else {
+                    fill("green");
+                }
             } else if (farbWert === 2) {
                 fill("yellow");
             } else if (farbWert === 3) {
@@ -41,14 +52,13 @@ socket.on('matrix', (matrix) => {
             } else if (farbWert === 5) {
                 fill("brown");
             }
-
             rect(j * cellSize, i * cellSize, cellSize, cellSize);
         }
     }
 });
 
 // wir können hier auch auf andere Ereignisse reagieren, die der Server sendet
-// socket.on('someEvent', (data) => {
-    socket.on('blitz', (blitz) => {
-        image(blitzImage, blitz.x * cellSize, blitz.y * cellSize, 3*cellSize, 3*cellSize)
-    });
+socket.on('blitz', (blitz) => {
+    image(blitzImage, blitz.x * cellSize, blitz.y * cellSize, 3 * cellSize, 3 * cellSize);
+});
+
